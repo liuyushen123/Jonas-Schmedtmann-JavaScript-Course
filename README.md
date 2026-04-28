@@ -1,44 +1,58 @@
-# Complete JavaScript Course - Jonas Schmedtmann
+# ⚡ Complete JavaScript Course: From Zero to Expert
 
-This repository contains my progress, notes, and projects from [The Complete JavaScript Course 2024: From Zero to Expert!](https://www.udemy.com/course/the-complete-javascript-course/) by Jonas Schmedtmann. 
+![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)
+![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white)
+![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white)
+![Status](https://img.shields.io/badge/Status-In%20Progress-orange?style=for-the-badge)
 
-The course covers everything from basic JavaScript fundamentals to advanced concepts like Object-Oriented Programming (OOP), Asynchronous JavaScript, and modern tooling.
+Welcome to my JavaScript learning repository! This workspace contains my progress, notes, and projects from [The Complete JavaScript Course 2024: From Zero to Expert!](https://www.udemy.com/course/the-complete-javascript-course/) by Jonas Schmedtmann.
 
-## 📁 Repository Structure
+The goal of this repository is to track my journey from mastering basic JavaScript syntax to building complex, modern web applications using advanced architectural patterns.
 
-The folders are organized sequentially by course section:
-
-* **[Section 01](./Section%2001)** - JavaScript Fundamentals – Part 1
-* **[Section 02](./Section%2002)** - JavaScript Fundamentals – Part 2
-* **[Section 03](./Section%2003)** - Developer Skills & Editor Setup
-* **[Section 04](./Section%2004)** - DOM and Events Fundamentals
-* **[Section 05: [Optional]](./Section%2005:%20[Optional])** - (Optional course content)
-* **[Section 06](./Section%2006)** - How JavaScript Works Behind the Scenes
-* **[Section 07](./Section%2007)** - Data Structures, Modern Operators and Strings
-* **[Section 08](./Section%2008)** - A Closer Look at Functions
-* **[Section 09](./Section%2009)** - Working With Arrays
-* **[Section 10](./Section%2010)** - Numbers, Dates, Intl and Timers
-* **[Section 11](./Section%2011)** - Advanced DOM and Events
-* **[Section 12](./Section%2012)** - Object-Oriented Programming (OOP) With JavaScript
-* **[Section 13](./Section%2013)** - Mapty App: OOP, Geolocation, External Libraries, and More!
-* **[Section 14](./Section%2014)** - Asynchronous JavaScript: Promises, Async/Await, and AJAX
-* **[Section 15](./Section%2015)** - Modern JavaScript Development: Modules, Tooling, and Functional
-* **[Section 16](./Section%2016)** - Forkify App: Building a Modern Application
-* **[Section 17](./Section%2017)** - Setting Up Git and Deployment
-* **[Section 18](./Section%2018)** - Legacy / Course Wrap-up
-
-*(Note: Content will be updated as I progress through the remaining sections of the course.)*
-
-## 🛠️ Technologies Used
-* JavaScript (ES6+)
-* HTML5
-* CSS3
-
-## 🚀 How to Run the Projects
-Most of the projects in this repository are front-end web applications. To run them locally:
-1. Clone this repository: `git clone https://github.com/liuyushen123/Jonas-Schmedtmann-JavaScript-Course.git`
-2. Navigate to the specific section folder.
-3. Open the `index.html` file in your browser (using an extension like Live Server in VS Code is recommended for the best experience).
+## 🎯 My Objectives
+As a computer science student, establishing a rock-solid foundation in vanilla JavaScript is a critical stepping stone toward my goals in modern web development. Before relying heavily on frameworks like React, I am using this course to ensure I deeply understand how the language works under the hood. My specific focuses include:
+* Understanding the JavaScript Engine, the Event Loop, and Execution Contexts.
+* Mastering Asynchronous JavaScript (Promises, Async/Await, and consuming RESTful APIs).
+* Implementing clean Object-Oriented Programming (OOP) architectures.
+* Learning modern tooling (NPM, modules, bundlers) and the Model-View-Controller (MVC) pattern.
 
 ---
-*Created by Yuchen Liu*
+
+## 🏗️ Course Curriculum & Repository Structure
+
+The repository is organized by course section, structured to take a developer from basic syntax to modern engineering practices.
+
+### Phase 1: Fundamentals & DOM (Sections 01 - 07)
+Focuses on core language mechanics and interacting with the browser.
+* **Concepts:** Variables, Data Types, Boolean Logic, Functions, Arrays, Objects, Loops, and the Document Object Model (DOM).
+* **Key Projects:** Guess My Number game, Modal Window component, and the Pig Game.
+
+### Phase 2: Deep Dive & Data Structures (Sections 08 - 11)
+Explores how JavaScript works behind the scenes and modern ES6+ features.
+* **Concepts:** Scoping, Hoisting, the `this` Keyword, Destructuring, Spread/Rest Operators, Short-Circuiting, Sets/Maps, and Advanced Array Methods (`map`, `filter`, `reduce`).
+* **Key Focus:** Building the Bankist App (a simulated banking interface focusing on DOM manipulation and data arrays).
+
+### Phase 3: Advanced JavaScript (Sections 12 - 14)
+Transitions into complex paradigms and external data handling.
+* **Concepts:** Object-Oriented Programming (Constructor Functions, Prototypes, ES6 Classes, Inheritance), Geolocation, and Asynchronous JavaScript (AJAX, Promises, Error Handling).
+* **Key Focus:** Building the Mapty App (an OOP-based workout tracker that logs activities on a real-world map using external APIs).
+
+### Phase 4: Architecture & Modern Tooling (Sections 15 - 18)
+Brings everything together to build a professional-grade application using modern development workflows.
+* **Concepts:** Modules (CommonJS vs. ES6), NPM, Babel, Bundling (Parcel), MVC Architecture, Publisher-Subscriber Pattern, and Git Deployment.
+* **Key Focus:** Building the Forkify App (a recipe search and management application interacting with a custom API).
+
+---
+
+## 💻 Tech Stack & Concepts
+Throughout this course, I will be utilizing and mastering:
+* **Core Languages:** JavaScript (ES6+), HTML5, CSS3
+* **APIs:** DOM API, Geolocation API, Intersection Observer API, RESTful APIs
+* **Paradigms:** Imperative, Object-Oriented (OOP), and Functional Programming
+* **Tooling:** Git, NPM, Parcel, Babel
+
+## 🚀 How to Run the Projects
+Most projects in this repository are front-end web applications that do not require a build step (until Section 15+). To run them locally:
+1. Clone this repository:
+   ```bash
+   git clone [https://github.com/liuyushen123/Jonas-Schmedtmann-JavaScript-Course.git](https://github.com/liuyushen123/Jonas-Schmedtmann-JavaScript-Course.git)
