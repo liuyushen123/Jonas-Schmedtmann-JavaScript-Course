@@ -35,6 +35,8 @@ const account4 = {
 
 const accounts = [account1, account2, account3, account4];
 
+let currentAccount;
+
 // Elements
 const labelWelcome = document.querySelector(".welcome");
 const labelDate = document.querySelector(".date");
@@ -43,6 +45,7 @@ const labelSumIn = document.querySelector(".summary__value--in");
 const labelSumOut = document.querySelector(".summary__value--out");
 const labelSumInterest = document.querySelector(".summary__value--interest");
 const labelTimer = document.querySelector(".timer");
+const dateSelector = document.querySelector(".date");
 
 const containerApp = document.querySelector(".app");
 const containerMovements = document.querySelector(".movements");
@@ -73,13 +76,17 @@ const selectorElementInvisiable = function (selector, decisionMaker = true) {
   decisionMaker ? (selector.style.opacity = 0) : (selector.style.opacity = 1);
 };
 
-const calcTotalBalance = function (movements) {
-  const balance = movements.reduce(
-    function (accumulator, movement, index, array) {
-      return accumulator + movement;
-    },
-  );
-  return formatCurrency(balance, "USD");
+const calcTotalBalance = function (account) {
+  const balance = account.movements.reduce(function (
+    accumulator,
+    movement,
+    index,
+    array,
+  ) {
+    return accumulator + movement;
+  }, 0);
+
+  account.totalBalance = balance;
 };
 
 const calcTotalDeposit = function (movements) {
@@ -106,25 +113,67 @@ const calcTotalWithdrawal = function (movements) {
   return formatCurrency(Math.abs(outcomes), "USD");
 };
 
-const verifyLogin = function (account) {
-  if (!account || Number(inputLoginPin.value) !== account.pin) return;
-  console.log("welcome back");
-  selectorElementInvisiable(containerApp, false);
-  emptyField(inputLoginUsername);
-  emptyField(inputLoginPin);
+const calculateTotalInterest = function (account) {
+  const totalInterest =
+    account.movements
+      .filter(function (currentMovement) {
+        return currentMovement > 0;
+      })
+      .map(function (currentMovement) {
+        return currentMovement * account.interestRate;
+      })
+      .reduce(function (accumulator, movement) {
+        return (accumulator += movement);
+      }, 0) / 100;
+  console.log(typeof totalInterest.toFixed(2));
+  return Number(totalInterest.toFixed(2));
+};
 
-  labelBalance.textContent = calcTotalBalance(account.movements);
+const updateUI = function (account) {
+  const totalInterest = calculateTotalInterest(account);
+  calcTotalBalance(account);
+
+  labelSumInterest.textContent = formatCurrency(totalInterest);
+  dateSelector.textContent = dateFormatter();
+  labelBalance.textContent = formatCurrency(account.totalBalance);
   labelSumIn.textContent = calcTotalDeposit(account.movements);
   labelSumOut.textContent = calcTotalWithdrawal(account.movements);
   labelWelcome.textContent = `Welcome back, ${account.owner.split(" ")[0]}!`;
   displayMovements(account.movements);
 };
 
-const formatCurrency = function (value, desiredCurrency) {
+const verifyLogin = function (account) {
+  if (Number(inputLoginPin.value) !== account?.pin) {
+    console.log("Thats is the wrong password or user does not exists");
+    return;
+  }
+  console.log("welcome back");
+  updateUI(account);
+  selectorElementInvisiable(containerApp, false);
+  emptyField(inputLoginUsername);
+  emptyField(inputLoginPin);
+};
+
+const formatCurrency = function (value, desiredCurrency = "USD") {
+  console.log("This is the value " + value);
   return new Intl.NumberFormat("en-US", {
     style: "currency",
     currency: desiredCurrency,
   }).format(value);
+};
+
+const dateFormatter = function () {
+  const today = new Date();
+  const yyyy = today.getFullYear();
+  let mm = today.getMonth() + 1; // Months start at 0!
+  let dd = today.getDate();
+
+  if (dd < 10) dd = "0" + dd;
+  if (mm < 10) mm = "0" + mm;
+
+  const formattedToday = dd + "/" + mm + "/" + yyyy;
+
+  return formattedToday;
 };
 
 const displayMovements = function (movements) {
@@ -156,21 +205,67 @@ const computeUsername = function (accountList) {
   });
 };
 
-const createMap = function () {
-  const accountsMap = new Map();
-  accounts.forEach(function (account, index, array) {
-    accountsMap.set(account.userName, account);
-  });
-  return accountsMap;
-};
-
 computeUsername(accounts);
 
-const accountsMap = createMap();
+accounts.forEach(function (account) {
+  calcTotalBalance(account);
+});
 
-btnLogin.addEventListener("click", (e) => {
+btnLogin.addEventListener("click", function (e) {
   e.preventDefault();
-  verifyLogin(accountsMap.get(inputLoginUsername.value));
+  currentAccount = accounts.find(function (acc) {
+    return acc.userName === inputLoginUsername.value;
+  });
+  inputLoginUsername.blur();
+  inputLoginPin.blur();
+  verifyLogin(currentAccount);
+});
+
+btnTransfer.addEventListener("click", function (e) {
+  e.preventDefault();
+
+  const transferAmount = Number(inputTransferAmount.value);
+  const receiverAccount = accounts.find(function (account) {
+    return account.userName === inputTransferTo.value;
+  });
+
+  console.log(receiverAccount);
+  console.log(transferAmount);
+
+  if (transferAmount <= 0) {
+    console.log("❌ Invalid amount");
+    return;
+  }
+
+  if (!receiverAccount) {
+    console.log("❌ Receiver not found");
+    return;
+  }
+
+  if (currentAccount?.totalBalance < transferAmount) {
+    console.log(currentAccount.totalBalance);
+    console.log("❌ Not enough balance");
+    return;
+  }
+
+  if (receiverAccount?.userName === currentAccount?.userName) {
+    console.log("❌ Cannot transfer to yourself");
+    return;
+  }
+
+  // ✅ If all pass
+  currentAccount.movements.push(-transferAmount);
+  receiverAccount.movements.push(transferAmount);
+
+  updateUI(currentAccount);
+
+  inputTransferAmount.value = "";
+  inputTransferTo.value = "";
+
+  inputTransferAmount.blur();
+  inputTransferTo.blur();
+
+  console.log("✅ Transfer valid");
 });
 
 /////////////////////////////////////////////////
