@@ -145,6 +145,9 @@ const updateUI = function (account) {
 const verifyLogin = function (account) {
   if (Number(inputLoginPin.value) !== account?.pin) {
     console.log("Thats is the wrong password or user does not exists");
+    inputLoginUsername.value = inputLoginPin.value = "";
+    inputLoginUsername.blur();
+    inputClosePin.blur();
     return;
   }
   console.log("welcome back");
@@ -205,6 +208,23 @@ const computeUsername = function (accountList) {
   });
 };
 
+const findUserByUserName = function (username) {
+  const desireAccount = accounts.find(function (account, index, array) {
+    return account.userName === username;
+  });
+
+  // This will return the object that match the passed in username
+  return desireAccount;
+};
+
+const findAccountIndex = function (account) {
+  const desireAccount = accounts.findIndex(function (acc) {
+    return acc === account;
+  });
+
+  return desireAccount;
+};
+
 computeUsername(accounts);
 
 accounts.forEach(function (account) {
@@ -213,9 +233,7 @@ accounts.forEach(function (account) {
 
 btnLogin.addEventListener("click", function (e) {
   e.preventDefault();
-  currentAccount = accounts.find(function (acc) {
-    return acc.userName === inputLoginUsername.value;
-  });
+  currentAccount = findUserByUserName(inputLoginUsername.value);
   inputLoginUsername.blur();
   inputLoginPin.blur();
   verifyLogin(currentAccount);
@@ -225,9 +243,7 @@ btnTransfer.addEventListener("click", function (e) {
   e.preventDefault();
 
   const transferAmount = Number(inputTransferAmount.value);
-  const receiverAccount = accounts.find(function (account) {
-    return account.userName === inputTransferTo.value;
-  });
+  const receiverAccount = findUserByUserName(inputTransferTo.value);
 
   console.log(receiverAccount);
   console.log(transferAmount);
@@ -266,6 +282,45 @@ btnTransfer.addEventListener("click", function (e) {
   inputTransferTo.blur();
 
   console.log("✅ Transfer valid");
+});
+
+btnClose.addEventListener("click", function (e) {
+  e.preventDefault();
+
+  const desireCloseUserName = inputCloseUsername.value;
+  const desireClosePassword = Number(inputClosePin.value);
+  const desrieToDeletedAccount = findUserByUserName(desireCloseUserName);
+
+  inputClosePin.value = inputCloseUsername.value = "";
+  inputClosePin.blur();
+  inputCloseUsername.blur();
+
+  if (!desrieToDeletedAccount) {
+    console.log("❌ Account does not exits");
+    return;
+  }
+
+  if (desrieToDeletedAccount.pin !== desireClosePassword) {
+    console.log("❌ Password Incorrect");
+    return;
+  }
+
+  const desrieToDeletedAccountIndex = findAccountIndex(desrieToDeletedAccount);
+
+  console.log("Validating passed ✅");
+  console.log(`Deleting ${desireCloseUserName}`);
+  console.log(`Deleting account at ${desrieToDeletedAccountIndex}`);
+  accounts.splice(desrieToDeletedAccountIndex, 1);
+
+  console.log(currentAccount);
+
+  if (
+    currentAccount === undefined ||
+    desrieToDeletedAccount === currentAccount
+  ) {
+    labelWelcome.textContent = "Log in to get started";
+    selectorElementInvisiable(containerApp);
+  }
 });
 
 /////////////////////////////////////////////////
