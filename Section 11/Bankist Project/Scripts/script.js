@@ -125,7 +125,6 @@ const calculateTotalInterest = function (account) {
       .reduce(function (accumulator, movement) {
         return (accumulator += movement);
       }, 0) / 100;
-  console.log(typeof totalInterest.toFixed(2));
   return Number(totalInterest.toFixed(2));
 };
 
@@ -150,7 +149,6 @@ const verifyLogin = function (account) {
     inputClosePin.blur();
     return;
   }
-  console.log("welcome back");
   updateUI(account);
   selectorElementInvisiable(containerApp, false);
   emptyField(inputLoginUsername);
@@ -158,7 +156,6 @@ const verifyLogin = function (account) {
 };
 
 const formatCurrency = function (value, desiredCurrency = "USD") {
-  console.log("This is the value " + value);
   return new Intl.NumberFormat("en-US", {
     style: "currency",
     currency: desiredCurrency,
@@ -186,7 +183,6 @@ const displayMovements = function (movements) {
   const depositeClass = "movements__type--deposit";
   movements.forEach(function (movement, index, array) {
     const type = movement > 0 ? "Deposit" : "Withdrawal";
-    console.log(type.toLowerCase());
     const html = `
     <div class="movements__row">
       <div class="movements__type movements__type--${type.toLowerCase()}">${type}</div>
@@ -245,9 +241,6 @@ btnTransfer.addEventListener("click", function (e) {
   const transferAmount = Number(inputTransferAmount.value);
   const receiverAccount = findUserByUserName(inputTransferTo.value);
 
-  console.log(receiverAccount);
-  console.log(transferAmount);
-
   if (transferAmount <= 0) {
     console.log("❌ Invalid amount");
     return;
@@ -283,44 +276,78 @@ btnTransfer.addEventListener("click", function (e) {
 
   console.log("✅ Transfer valid");
 });
-
 btnClose.addEventListener("click", function (e) {
   e.preventDefault();
 
-  const desireCloseUserName = inputCloseUsername.value;
-  const desireClosePassword = Number(inputClosePin.value);
-  const desrieToDeletedAccount = findUserByUserName(desireCloseUserName);
+  const username = inputCloseUsername.value;
+  const pin = Number(inputClosePin.value);
 
-  inputClosePin.value = inputCloseUsername.value = "";
-  inputClosePin.blur();
+  const account = findUserByUserName(username);
+
+  // Empty the field
+  inputCloseUsername.value = inputClosePin.value = "";
   inputCloseUsername.blur();
+  inputClosePin.blur();
 
-  if (!desrieToDeletedAccount) {
-    console.log("❌ Account does not exits");
+  // Checking account exists or not
+  if (!account) {
+    console.log("❌ Account does not exist");
+    return;
+  }
+  // Check if the pin is right
+  if (account.pin !== pin) {
+    console.log("❌ Incorrect PIN");
     return;
   }
 
-  if (desrieToDeletedAccount.pin !== desireClosePassword) {
-    console.log("❌ Password Incorrect");
-    return;
-  }
-
-  const desrieToDeletedAccountIndex = findAccountIndex(desrieToDeletedAccount);
+  const index = findAccountIndex(account);
 
   console.log("Validating passed ✅");
-  console.log(`Deleting ${desireCloseUserName}`);
-  console.log(`Deleting account at ${desrieToDeletedAccountIndex}`);
-  accounts.splice(desrieToDeletedAccountIndex, 1);
+  console.log(`Deleting ${username}`);
+  console.log(`Deleting account at index ${index}`);
 
-  console.log(currentAccount);
+  accounts.splice(index, 1);
 
-  if (
-    currentAccount === undefined ||
-    desrieToDeletedAccount === currentAccount
-  ) {
+  // If user is deleting the current account
+  // We will reset it to login
+  if (!currentAccount || account === currentAccount) {
     labelWelcome.textContent = "Log in to get started";
     selectorElementInvisiable(containerApp);
   }
 });
 
+btnLoan.addEventListener("click", function (e) {
+  e.preventDefault();
+
+  const requestLoanAmount = Number(inputLoanAmount.value);
+
+  inputLoanAmount.value = "";
+  inputLoanAmount.blur();
+  if (isNaN(requestLoanAmount)) {
+    console.log("❌ Can not take string as input!!");
+    return;
+  }
+
+  if (!currentAccount) {
+    console.log("❌ Can not find the current account");
+    return;
+  }
+
+  if (requestLoanAmount < 500) {
+    console.log("❌ Amount of the loan requested is too low");
+    return;
+  }
+
+  const isUserQualified = currentAccount.movements.some(function (movement) {
+    return movement > (requestLoanAmount / 10).toFixed(2);
+  });
+
+  if (isUserQualified) {
+    console.log("✅ Loan approved!");
+    currentAccount.movements.push(requestLoanAmount);
+    updateUI(currentAccount);
+  } else {
+    console.log("❌ Loan disapproved: No large enough deposits found.");
+  }
+});
 /////////////////////////////////////////////////

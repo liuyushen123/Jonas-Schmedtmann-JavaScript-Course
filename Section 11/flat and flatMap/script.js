@@ -1,10 +1,10 @@
 "use strict";
 
-const movements = [-5000, 3400, -150, -790, -3210, -1000, 8500, -30];
+const arr = [[1, 2, 3], [4, 5, 6], 7, 8];
 
-console.log(`First Withdrawal is ${movements.find((mov, index) => mov < 0)}`);
-
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+const deepArr = [[[[[[[[[[arr]]]]]]]]]];
+console.log(arr.flat());
+console.log(deepArr.flat(Infinity));
 
 const account1 = {
   owner: "Yuchen Liu",
@@ -36,12 +36,12 @@ const account4 = {
 
 const accounts = [account1, account2, account3, account4];
 
-const account = accounts.find((acc) => acc.owner === "Jessica Davis");
-
-console.log(
-  account.movements.forEach(function (currentAccount, index, array) {
-    console.log(currentAccount);
-  }),
+const accountMovements = accounts.map((acc) => acc.movements);
+console.log(accountMovements);
+const allMovements = accountMovements.flat(Infinity);
+console.log(allMovements);
+const overallBalance = allMovements.reduce(
+  (accumulator, movement, index, array) => accumulator + movement,
+  0,
 );
-
-console.log(Number("Strong"));
+console.log(overallBalance);
