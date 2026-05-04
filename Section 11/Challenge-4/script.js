@@ -83,7 +83,7 @@ const allActivities2 = breeds.flatMap(function (dog) {
 console.log(allActivities);
 console.log(allActivities2);
 
-const uniqueActivities = new Set(...allActivities);
+const uniqueActivities = [...new Set(allActivities)];
 
 const loveSwimmingDogs = breeds.filter(function (dog) {
   return dog.activities.includes("swimming");
