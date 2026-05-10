@@ -36,6 +36,7 @@ const account4 = {
 const accounts = [account1, account2, account3, account4];
 
 let currentAccount;
+let isSorted = false;
 
 // Elements
 const labelWelcome = document.querySelector(".welcome");
@@ -176,8 +177,15 @@ const dateFormatter = function () {
   return formattedToday;
 };
 
-const displayMovements = function (movements) {
+const displayMovements = function (movements, sortDecisionMaker = false) {
   if (!movements) return;
+
+  if (sortDecisionMaker) {
+    movements = movements.slice().sort(function (current, next) {
+      return current - next;
+    });
+  }
+
   containerMovements.innerHTML = "";
   const withdrwalClass = "movements__type--withdrawal";
   const depositeClass = "movements__type--deposit";
@@ -349,5 +357,12 @@ btnLoan.addEventListener("click", function (e) {
   } else {
     console.log("❌ Loan disapproved: No large enough deposits found.");
   }
+});
+
+btnSort.addEventListener("click", function (e) {
+  e.preventDefault();
+
+  displayMovements(currentAccount.movements, !isSorted);
+  isSorted = !isSorted;
 });
 /////////////////////////////////////////////////
