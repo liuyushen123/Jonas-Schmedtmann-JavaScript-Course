@@ -28,4 +28,3 @@ console.log(20n == 20); // And this will be -> true
 // Divisions
 console.log(10n / 3n); // Since BigInt is indeed a integer will be -> 3n
 console.log(10 / 3);
-

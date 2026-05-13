@@ -8,86 +8,165 @@
 const account1 = {
   owner: "Yuchen Liu",
   username: "yl",
-  movements: [200, 450, -400, 3000, -650, -130, 70, 1300],
   interestRate: 1.2,
   pin: 1,
-
-  movementsDates: [
-    "2026-01-18T21:31:17.178Z",
-    "2026-02-02T07:42:02.383Z",
-    "2026-02-15T09:15:04.904Z",
-    "2026-03-01T10:17:24.185Z",
-    "2026-03-18T14:11:59.604Z",
-    "2026-04-02T17:01:17.194Z",
-    "2026-04-19T23:36:17.929Z",
-    "2026-05-08T10:51:36.790Z",
-  ],
-
   currency: "CNY",
   locale: "zh-CN",
+
+  movements: [
+    {
+      amount: 200,
+      date: "2026-01-18T21:31:17.178Z",
+    },
+    {
+      amount: 450,
+      date: "2026-02-02T07:42:02.383Z",
+    },
+    {
+      amount: -400,
+      date: "2026-02-15T09:15:04.904Z",
+    },
+    {
+      amount: 3000,
+      date: "2026-03-01T10:17:24.185Z",
+    },
+    {
+      amount: -650,
+      date: "2026-03-18T14:11:59.604Z",
+    },
+    {
+      amount: -130,
+      date: "2026-04-02T17:01:17.194Z",
+    },
+    {
+      amount: 70,
+      date: "2026-04-19T23:36:17.929Z",
+    },
+    {
+      amount: 1300,
+      date: "2026-05-08T10:51:36.790Z",
+    },
+  ],
 };
 
 const account2 = {
   owner: "Jessica Davis",
   username: "jd",
-  movements: [5000, 3400, -150, -790, -3210, -1000, 8500, -30],
   interestRate: 1.5,
   pin: 2222,
-
-  movementsDates: [
-    "2025-11-01T13:15:33.035Z",
-    "2025-11-30T09:48:16.867Z",
-    "2025-12-25T06:04:23.907Z",
-    "2026-01-25T14:18:46.235Z",
-    "2026-02-05T16:33:06.386Z",
-    "2026-03-10T14:43:26.374Z",
-    "2026-04-25T18:49:59.371Z",
-    "2026-05-01T12:01:20.894Z",
-  ],
-
   currency: "USD",
   locale: "en-US",
+
+  movements: [
+    {
+      amount: 5000,
+      date: "2025-11-01T13:15:33.035Z",
+    },
+    {
+      amount: 3400,
+      date: "2025-11-30T09:48:16.867Z",
+    },
+    {
+      amount: -150,
+      date: "2025-12-25T06:04:23.907Z",
+    },
+    {
+      amount: -790,
+      date: "2026-01-25T14:18:46.235Z",
+    },
+    {
+      amount: -3210,
+      date: "2026-02-05T16:33:06.386Z",
+    },
+    {
+      amount: -1000,
+      date: "2026-03-10T14:43:26.374Z",
+    },
+    {
+      amount: 8500,
+      date: "2026-04-25T18:49:59.371Z",
+    },
+    {
+      amount: -30,
+      date: "2026-05-01T12:01:20.894Z",
+    },
+  ],
 };
 
 const account3 = {
   owner: "Steven Thomas Williams",
   username: "stw",
-  movements: [200, -200, 340, -300, -20, 50, 400, -460],
   interestRate: 0.7,
   pin: 3333,
-
-  movementsDates: [
-    "2025-10-05T08:15:12.178Z",
-    "2025-10-18T10:42:02.383Z",
-    "2025-11-11T11:15:04.904Z",
-    "2025-12-01T09:17:24.185Z",
-    "2026-01-08T12:11:59.604Z",
-    "2026-02-14T15:01:17.194Z",
-    "2026-03-21T20:36:17.929Z",
-    "2026-04-30T22:51:36.790Z",
-  ],
-
   currency: "GBP",
   locale: "en-GB",
+
+  movements: [
+    {
+      amount: 200,
+      date: "2025-10-05T08:15:12.178Z",
+    },
+    {
+      amount: -200,
+      date: "2025-10-18T10:42:02.383Z",
+    },
+    {
+      amount: 340,
+      date: "2025-11-11T11:15:04.904Z",
+    },
+    {
+      amount: -300,
+      date: "2025-12-01T09:17:24.185Z",
+    },
+    {
+      amount: -20,
+      date: "2026-01-08T12:11:59.604Z",
+    },
+    {
+      amount: 50,
+      date: "2026-02-14T15:01:17.194Z",
+    },
+    {
+      amount: 400,
+      date: "2026-03-21T20:36:17.929Z",
+    },
+    {
+      amount: -460,
+      date: "2026-04-30T22:51:36.790Z",
+    },
+  ],
 };
 
 const account4 = {
   owner: "Sarah Smith",
   username: "ss",
-  movements: [430, 1000, 700, 50, 90],
   interestRate: 1,
   pin: 4444,
-
-  movementsDates: [
-    "2026-01-10T11:11:11.111Z",
-    "2026-02-14T15:20:45.222Z",
-    "2026-03-03T08:45:12.333Z",
-    "2026-04-07T19:30:10.444Z",
-    "2026-05-09T21:05:55.555Z",
-  ],
-
   currency: "CAD",
   locale: "en-CA",
+
+  movements: [
+    {
+      amount: 430,
+      date: "2026-01-10T11:11:11.111Z",
+    },
+    {
+      amount: 1000,
+      date: "2026-02-14T15:20:45.222Z",
+    },
+    {
+      amount: 700,
+      date: "2026-03-03T08:45:12.333Z",
+    },
+    {
+      amount: 50,
+      date: "2026-04-07T19:30:10.444Z",
+    },
+    {
+      amount: 90,
+      date: "2026-05-09T21:05:55.555Z",
+    },
+  ],
 };
 
 const accounts = [account1, account2, account3, account4];
@@ -130,8 +209,8 @@ const emptyField = function (selector) {
   selector.value = "";
 };
 
-const selectorElementInvisiable = function (selector, decisionMaker = true) {
-  decisionMaker ? (selector.style.opacity = 0) : (selector.style.opacity = 1);
+const selectorElementInvisiable = function (selector, isVisible = true) {
+  selector.style.opacity = isVisible ? 0 : 1;
 };
 
 const calcTotalBalance = function (account) {
@@ -141,7 +220,7 @@ const calcTotalBalance = function (account) {
     index,
     array,
   ) {
-    return accumulator + movement;
+    return accumulator + movement.amount;
   }, 0);
 
   account.totalBalance = balance;
@@ -150,11 +229,11 @@ const calcTotalBalance = function (account) {
 const calcTotalDeposit = function (account) {
   const incomes = account.movements
     .filter(function (movement) {
-      return movement > 0;
+      return movement.amount > 0;
     })
     .reduce(function (accumulator, movement) {
-      return (accumulator += movement);
-    });
+      return accumulator + movement.amount;
+    }, 0);
 
   return formatCurrency(incomes, account.currency, account.locale);
 };
@@ -162,10 +241,10 @@ const calcTotalDeposit = function (account) {
 const calcTotalWithdrawal = function (account) {
   const outcomes = account.movements
     .filter(function (movement) {
-      return movement < 0;
+      return movement.amount < 0;
     })
     .reduce(function (accumulator, movement) {
-      return (accumulator -= movement);
+      return (accumulator -= movement.amount);
     }, 0);
 
   return formatCurrency(Math.abs(outcomes), account.currency, account.locale);
@@ -175,10 +254,10 @@ const calculateTotalInterest = function (account) {
   const totalInterest =
     account.movements
       .filter(function (currentMovement) {
-        return currentMovement > 0;
+        return currentMovement.amount > 0;
       })
       .map(function (currentMovement) {
-        return currentMovement * account.interestRate;
+        return currentMovement.amount * account.interestRate;
       })
       .reduce(function (accumulator, movement) {
         return (accumulator += movement);
@@ -195,7 +274,7 @@ const updateUI = function (account) {
     account.currency,
     account.locale,
   );
-  dateSelector.textContent = dateFormatter();
+  dateSelector.textContent = formatCurrentDate(account);
   labelBalance.textContent = formatCurrency(
     account.totalBalance,
     account.currency,
@@ -232,37 +311,41 @@ const formatCurrency = function (
   }).format(value);
 };
 
-const dateFormatter = function () {
-  const today = new Date();
-  const yyyy = today.getFullYear();
-  let mm = today.getMonth() + 1; // Months start at 0!
-  let dd = today.getDate();
+const formatCurrentDate = function (account, date = new Date()) {
+  const locale = account.locale === "zh-CN" ? "en-US" : account.locale;
 
-  if (dd < 10) dd = "0" + dd;
-  if (mm < 10) mm = "0" + mm;
+  return new Intl.DateTimeFormat(locale, {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+  }).format(date);
+};
 
-  const formattedToday = dd + "/" + mm + "/" + yyyy;
-
-  return formattedToday;
+const formatMovementDate = function (account, date) {
+  return new Intl.DateTimeFormat(account.locale).format(date);
 };
 
 const displayMovements = function (account, sortDecisionMaker = false) {
   if (!account.movements) return;
 
   const movements = sortDecisionMaker
-    ? account.movements.slice().sort((a, b) => a - b)
+    ? account.movements.slice().sort((a, b) => a.amount - b.amount)
     : account.movements;
 
   containerMovements.innerHTML = "";
   const withdrwalClass = "movements__type--withdrawal";
   const depositeClass = "movements__type--deposit";
+
   movements.forEach(function (movement, index, array) {
-    const type = movement > 0 ? "Deposit" : "Withdrawal";
+    const type = movement.amount > 0 ? "Deposit" : "Withdrawal";
+    const date = formatMovementDate(account, new Date(movement.date), true);
     const html = `
     <div class="movements__row">
       <div class="movements__type movements__type--${type.toLowerCase()}">${type}</div>
-      <div class="movements__date">3 days ago</div>
-      <div class="movements__value">${formatCurrency(movement, account.currency, account.locale)}</div>
+      <div class="movements__date">${date}</div>
+      <div class="movements__value">${formatCurrency(movement.amount, account.currency, account.locale)}</div>
     </div>
       `;
     containerMovements.insertAdjacentHTML("afterbegin", html);
@@ -320,14 +403,21 @@ btnTransfer.addEventListener("click", function (e) {
     return;
   }
 
-  if (receiverAccount?.userName === currentAccount?.userName) {
+  if (receiverAccount?.username === currentAccount?.username) {
     console.log("❌ Cannot transfer to yourself");
     return;
   }
 
   // ✅ If all pass
-  currentAccount.movements.push(-transferAmount);
-  receiverAccount.movements.push(transferAmount);
+
+  currentAccount.movements.push({
+    amount: -transferAmount,
+    date: new Date().toISOString(),
+  });
+  receiverAccount.movements.push({
+    amount: transferAmount,
+    date: new Date().toISOString(),
+  });
 
   updateUI(currentAccount);
 
@@ -402,12 +492,16 @@ btnLoan.addEventListener("click", function (e) {
   }
 
   const isUserQualified = currentAccount.movements.some(function (movement) {
-    return movement > requestLoanAmount * 0.1;
+    return movement.amount > requestLoanAmount * 0.1;
   });
 
   if (isUserQualified) {
     console.log("✅ Loan approved!");
-    currentAccount.movements.push(requestLoanAmount);
+    currentAccount.movements.push({
+      amount: requestLoanAmount,
+      date: new Date(),
+    });
+
     updateUI(currentAccount);
   } else {
     console.log("❌ Loan disapproved: No large enough deposits found.");
