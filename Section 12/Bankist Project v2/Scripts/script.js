@@ -16,19 +16,19 @@ const account1 = {
   movements: [
     {
       amount: 200,
-      date: "2026-01-18T21:31:17.178Z",
+      date: new Date().toISOString(),
     },
     {
       amount: 450,
-      date: "2026-02-02T07:42:02.383Z",
+      date: new Date(Date.now() - 1000 * 60 * 60 * 24).toISOString(),
     },
     {
       amount: -400,
-      date: "2026-02-15T09:15:04.904Z",
+      date: new Date(Date.now() - 1000 * 60 * 60 * 24 * 2).toISOString(),
     },
     {
       amount: 3000,
-      date: "2026-03-01T10:17:24.185Z",
+      date: new Date(Date.now() - 1000 * 60 * 60 * 24 * 5).toISOString(),
     },
     {
       amount: -650,
@@ -324,7 +324,12 @@ const formatCurrentDate = function (account, date = new Date()) {
 };
 
 const formatMovementDate = function (account, date) {
-  return new Intl.DateTimeFormat(account.locale).format(date);
+  const today = new Date();
+  const difference = Math.round(Math.abs(date - today) / (1000 * 60 * 60 * 24));
+  if (difference === 0) return "Today";
+  if (difference === 1) return "Yesterday";
+  if (difference <= 7) return `${difference} days ago`;
+  else return new Intl.DateTimeFormat(account.locale).format(date);
 };
 
 const displayMovements = function (account, sortDecisionMaker = false) {
