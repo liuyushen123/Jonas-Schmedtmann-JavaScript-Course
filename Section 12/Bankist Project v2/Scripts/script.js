@@ -10,42 +10,12 @@ const account1 = {
   username: "yl",
   interestRate: 1.2,
   pin: 1,
-  currency: "CNY",
-  locale: "zh-CN",
+  currency: "USD",
+  locale: "en-US",
 
   movements: [
-    {
-      amount: 200,
-      date: new Date().toISOString(),
-    },
-    {
-      amount: 450,
-      date: new Date(Date.now() - 1000 * 60 * 60 * 24).toISOString(),
-    },
-    {
-      amount: -400,
-      date: new Date(Date.now() - 1000 * 60 * 60 * 24 * 2).toISOString(),
-    },
-    {
-      amount: 3000,
-      date: new Date(Date.now() - 1000 * 60 * 60 * 24 * 5).toISOString(),
-    },
-    {
-      amount: -650,
-      date: "2026-03-18T14:11:59.604Z",
-    },
-    {
-      amount: -130,
-      date: "2026-04-02T17:01:17.194Z",
-    },
-    {
-      amount: 70,
-      date: "2026-04-19T23:36:17.929Z",
-    },
-    {
-      amount: 1300,
-      date: "2026-05-08T10:51:36.790Z",
-    },
+    { amount: 255, date: "2026-05-13T19:39:00.101Z" },
+    { amount: 13, date: "2026-05-13T19:39:30.101Z" },
   ],
 };
 

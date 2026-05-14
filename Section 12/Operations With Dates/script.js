@@ -89,30 +89,16 @@ const account4 = {
   locale: "en-CA",
 };
 
-const now = new Date();
-console.log(now);
-
-console.log(new Date(""));
-console.log(new Date("Aug 02 2020 18:05:41"));
-console.log(new Date("December 24, 2015"));
-console.log(new Date(account1.movementsDates));
-
-console.log(new Date(2037, 10, 19, 15, 23, 5));
-
-console.log(new Date(0));
-console.log(new Date(3 * 24 * 60 * 60 * 1000));
+//new Date(year, month, day, hour, minute, second, millisecond)
+// Month is 0 based
 
 const future = new Date(2077, 10, 19, 15, 23);
-console.log(future);
-console.log(future.getFullYear());
-console.log(future.getMonth() + 1); // Get month will be 0 based
-console.log(future.getDay());
-console.log(future.getHours());
-console.log(future.toISOString());
+const dayConverter = 86400000;
+const currentDate = new Date();
+const myWantedDate = new Date(2026, 5, 0);
+console.log(+future * dayConverter); // Convert this into millisecond
+console.log(myWantedDate);
 
-console.log(new Date(Date.now()));
+const daysPassed = (date1, date2) => (date2 - date1) / dayConverter;
 
-future.setFullYear(2040);
-console.log(future);
-
-console.log(new Date());
+console.log(daysPassed(currentDate, myWantedDate));
