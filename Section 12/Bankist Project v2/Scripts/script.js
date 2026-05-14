@@ -344,6 +344,25 @@ const findAccountIndex = function (account) {
   return desireAccount;
 };
 
+const currencyConvert = async function (
+  receiverAccount,
+  senderAccount,
+  transferAmount = 0,
+) {
+  const apiKey = "03484341a0f7578ef5f312ca";
+
+  const URL = `https://v6.exchangerate-api.com/v6/${apiKey}/latest/${senderAccount.currency}`;
+  const response = await fetch(URL);
+  const data = await response.json();
+
+  const convertRate = Number(
+    data.conversion_rates[receiverAccount.currency].toFixed(2),
+  );
+  const amount = Number((transferAmount * convertRate).toFixed(2));
+
+  return amount;
+};
+
 accounts.forEach(function (account) {
   calcTotalBalance(account);
 });
@@ -356,11 +375,16 @@ btnLogin.addEventListener("click", function (e) {
   verifyLogin(currentAccount);
 });
 
-btnTransfer.addEventListener("click", function (e) {
+btnTransfer.addEventListener("click", async function (e) {
   e.preventDefault();
+  const receiverAccount = findUserByUserName(inputTransferTo.value);
 
   const transferAmount = Number(inputTransferAmount.value);
-  const receiverAccount = findUserByUserName(inputTransferTo.value);
+  const recieveAmount = await currencyConvert(
+    receiverAccount,
+    currentAccount,
+    transferAmount,
+  );
 
   if (transferAmount <= 0) {
     console.log("❌ Invalid amount");
@@ -390,7 +414,7 @@ btnTransfer.addEventListener("click", function (e) {
     date: new Date().toISOString(),
   });
   receiverAccount.movements.push({
-    amount: transferAmount,
+    amount: recieveAmount,
     date: new Date().toISOString(),
   });
 
