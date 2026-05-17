@@ -16,6 +16,11 @@ const account1 = {
   movements: [
     { amount: 255, date: "2026-05-13T19:39:00.101Z" },
     { amount: 13, date: "2026-05-13T19:39:30.101Z" },
+    { amount: 258, date: "2026-05-15T02:02:24.856Z" },
+    { amount: -7, date: "2026-05-15T17:57:41.441Z" },
+    { amount: -5, date: "2026-05-15T17:57:41.441Z" },
+    { amount: 317, date: "2026-05-16T02:22:55.285Z" },
+    { amount: 345, date: "2026-05-17T02:30:16.754Z" },
   ],
 };
 
@@ -193,7 +198,7 @@ const calcTotalBalance = function (account) {
     return accumulator + movement.amount;
   }, 0);
 
-  account.totalBalance = balance;
+  return balance;
 };
 
 const calcTotalDeposit = function (account) {
@@ -237,16 +242,17 @@ const calculateTotalInterest = function (account) {
 
 const updateUI = function (account) {
   const totalInterest = calculateTotalInterest(account);
-  calcTotalBalance(account);
+  account.totalBalance = calcTotalBalance(account);
 
   labelSumInterest.textContent = formatCurrency(
     totalInterest,
     account.currency,
     account.locale,
   );
+
   dateSelector.textContent = formatCurrentDate(account);
   labelBalance.textContent = formatCurrency(
-    account.totalBalance,
+    account.balance,
     account.currency,
     account.locale,
   );
@@ -286,7 +292,7 @@ const formatCurrentDate = function (account, date = new Date()) {
 
   return new Intl.DateTimeFormat(locale, {
     year: "numeric",
-    month: "long",
+    month: "short",
     day: "numeric",
     hour: "2-digit",
     minute: "2-digit",
@@ -310,8 +316,6 @@ const displayMovements = function (account, sortDecisionMaker = false) {
     : account.movements;
 
   containerMovements.innerHTML = "";
-  const withdrwalClass = "movements__type--withdrawal";
-  const depositeClass = "movements__type--deposit";
 
   movements.forEach(function (movement, index, array) {
     const type = movement.amount > 0 ? "Deposit" : "Withdrawal";
@@ -344,28 +348,53 @@ const findAccountIndex = function (account) {
   return desireAccount;
 };
 
-const currencyConvert = async function (
-  receiverAccount,
-  senderAccount,
-  transferAmount = 0,
-) {
-  const apiKey = "03484341a0f7578ef5f312ca";
-
-  const URL = `https://v6.exchangerate-api.com/v6/${apiKey}/latest/${senderAccount.currency}`;
-  const response = await fetch(URL);
-  const data = await response.json();
-
-  const convertRate = Number(
-    data.conversion_rates[receiverAccount.currency].toFixed(2),
-  );
-  const amount = Number((transferAmount * convertRate).toFixed(2));
-
-  return amount;
+const appendMovement = function (account, amount, date = new Date()) {
+  account.movements.push({
+    amount,
+    date: date.toISOString(),
+  });
 };
 
-accounts.forEach(function (account) {
-  calcTotalBalance(account);
-});
+const convertCurrency = async function (
+  toAccount,
+  fromAccount,
+  amountToTransfer = 0,
+) {
+  try {
+    const apiKey = "03484341a0f7578ef5f312ca";
+
+    const requestUrl = `https://v6.exchangerate-api.com/v6/${apiKey}/latest/${fromAccount.currency}`;
+
+    const apiResponse = await fetch(requestUrl);
+
+    if (!apiResponse.ok) throw new Error("Failed to fetch exchange rates");
+
+    const exchangeData = await apiResponse.json();
+
+    const targetExchangeRate =
+      exchangeData.conversion_rates[toAccount.currency];
+
+    if (!targetExchangeRate) throw new Error("Unsupported currency");
+
+    const convertedAmount = Number(
+      (amountToTransfer * targetExchangeRate).toFixed(2),
+    );
+
+    console.log(
+      `${amountToTransfer} * ${targetExchangeRate} = ${convertedAmount}`,
+    );
+
+    return {
+      convertedAmount,
+      exchangeRate: targetExchangeRate,
+      fromCurrency: fromAccount.currency,
+      toCurrency: toAccount.currency,
+    };
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};
 
 btnLogin.addEventListener("click", function (e) {
   e.preventDefault();
@@ -380,11 +409,6 @@ btnTransfer.addEventListener("click", async function (e) {
   const receiverAccount = findUserByUserName(inputTransferTo.value);
 
   const transferAmount = Number(inputTransferAmount.value);
-  const recieveAmount = await currencyConvert(
-    receiverAccount,
-    currentAccount,
-    transferAmount,
-  );
 
   if (transferAmount <= 0) {
     console.log("❌ Invalid amount");
@@ -395,6 +419,12 @@ btnTransfer.addEventListener("click", async function (e) {
     console.log("❌ Receiver not found");
     return;
   }
+
+  const conversionData = await convertCurrency(
+    receiverAccount,
+    currentAccount,
+    transferAmount,
+  );
 
   if (currentAccount?.totalBalance < transferAmount) {
     console.log(currentAccount.totalBalance);
@@ -407,16 +437,20 @@ btnTransfer.addEventListener("click", async function (e) {
     return;
   }
 
+  if (!conversionData) {
+    console.log("❌  Cannot convert currency");
+    return;
+  }
+
   // ✅ If all pass
 
-  currentAccount.movements.push({
-    amount: -transferAmount,
-    date: new Date().toISOString(),
-  });
-  receiverAccount.movements.push({
-    amount: recieveAmount,
-    date: new Date().toISOString(),
-  });
+  console.log(
+    `Converting from ${conversionData.fromCurrency} to ${conversionData.toCurrency}
+  with exchange rate of ${conversionData.exchangeRate}`,
+  );
+
+  appendMovement(currentAccount, -transferAmount);
+  appendMovement(receiverAccount, conversionData.convertedAmount);
 
   updateUI(currentAccount);
 
@@ -496,11 +530,7 @@ btnLoan.addEventListener("click", function (e) {
 
   if (isUserQualified) {
     console.log("✅ Loan approved!");
-    currentAccount.movements.push({
-      amount: requestLoanAmount,
-      date: new Date(),
-    });
-
+    appendMovement(currentAccount, requestLoanAmount, new Date());
     updateUI(currentAccount);
   } else {
     console.log("❌ Loan disapproved: No large enough deposits found.");
