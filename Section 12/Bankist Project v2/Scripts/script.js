@@ -3,148 +3,6 @@
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
 // BANKIST APP
-
-// Data
-// const account1 = {
-//   owner: "Yuchen Liu",
-//   username: "yl",
-//   interestRate: 1.2,
-//   pin: 1,
-//   currency: "USD",
-//   locale: "en-US",
-
-//   movements: [
-//     { amount: 255, date: "2026-05-13T19:39:00.101Z" },
-//     { amount: 13, date: "2026-05-13T19:39:30.101Z" },
-//     { amount: 258, date: "2026-05-15T02:02:24.856Z" },
-//     { amount: -7, date: "2026-05-15T17:57:41.441Z" },
-//     { amount: -5, date: "2026-05-15T17:57:41.441Z" },
-//     { amount: 317, date: "2026-05-16T02:22:55.285Z" },
-//     { amount: 345, date: "2026-05-17T02:30:16.754Z" },
-//     { amount: 282, date: "2026-05-18T01:28:25.697Z" },
-//   ],
-// };
-
-// const account2 = {
-//   owner: "Jessica Davis",
-//   username: "jd",
-//   interestRate: 1.5,
-//   pin: 2222,
-//   currency: "USD",
-//   locale: "en-US",
-
-//   movements: [
-//     {
-//       amount: 5000,
-//       date: "2025-11-01T13:15:33.035Z",
-//     },
-//     {
-//       amount: 3400,
-//       date: "2025-11-30T09:48:16.867Z",
-//     },
-//     {
-//       amount: -150,
-//       date: "2025-12-25T06:04:23.907Z",
-//     },
-//     {
-//       amount: -790,
-//       date: "2026-01-25T14:18:46.235Z",
-//     },
-//     {
-//       amount: -3210,
-//       date: "2026-02-05T16:33:06.386Z",
-//     },
-//     {
-//       amount: -1000,
-//       date: "2026-03-10T14:43:26.374Z",
-//     },
-//     {
-//       amount: 8500,
-//       date: "2026-04-25T18:49:59.371Z",
-//     },
-//     {
-//       amount: -30,
-//       date: "2026-05-01T12:01:20.894Z",
-//     },
-//   ],
-// };
-
-// const account3 = {
-//   owner: "Steven Thomas Williams",
-//   username: "stw",
-//   interestRate: 0.7,
-//   pin: 3333,
-//   currency: "GBP",
-//   locale: "en-GB",
-
-//   movements: [
-//     {
-//       amount: 200,
-//       date: "2025-10-05T08:15:12.178Z",
-//     },
-//     {
-//       amount: -200,
-//       date: "2025-10-18T10:42:02.383Z",
-//     },
-//     {
-//       amount: 340,
-//       date: "2025-11-11T11:15:04.904Z",
-//     },
-//     {
-//       amount: -300,
-//       date: "2025-12-01T09:17:24.185Z",
-//     },
-//     {
-//       amount: -20,
-//       date: "2026-01-08T12:11:59.604Z",
-//     },
-//     {
-//       amount: 50,
-//       date: "2026-02-14T15:01:17.194Z",
-//     },
-//     {
-//       amount: 400,
-//       date: "2026-03-21T20:36:17.929Z",
-//     },
-//     {
-//       amount: -460,
-//       date: "2026-04-30T22:51:36.790Z",
-//     },
-//   ],
-// };
-
-// const account4 = {
-//   owner: "Sarah Smith",
-//   username: "ss",
-//   interestRate: 1,
-//   pin: 4444,
-//   currency: "CAD",
-//   locale: "en-CA",
-
-//   movements: [
-//     {
-//       amount: 430,
-//       date: "2026-01-10T11:11:11.111Z",
-//     },
-//     {
-//       amount: 1000,
-//       date: "2026-02-14T15:20:45.222Z",
-//     },
-//     {
-//       amount: 700,
-//       date: "2026-03-03T08:45:12.333Z",
-//     },
-//     {
-//       amount: 50,
-//       date: "2026-04-07T19:30:10.444Z",
-//     },
-//     {
-//       amount: 90,
-//       date: "2026-05-09T21:05:55.555Z",
-//     },
-//   ],
-// };
-
 let accounts;
 
 let currentAccount;
@@ -158,6 +16,11 @@ const labelSumIn = document.querySelector(".summary__value--in");
 const labelSumOut = document.querySelector(".summary__value--out");
 const labelSumInterest = document.querySelector(".summary__value--interest");
 const labelTimer = document.querySelector(".timer");
+const labelAsOf = document.querySelector(".balance__as-of");
+const labelCurrentBalance = document.querySelector(".balance__label");
+const labelIn = document.querySelector(".summary__label--in");
+const labelOut = document.querySelector(".summary__label--out");
+const labelInterest = document.querySelector(".summary__label--interest");
 const dateSelector = document.querySelector(".date");
 
 const containerApp = document.querySelector(".app");
@@ -281,38 +144,141 @@ const calculateTotalInterest = function (account) {
 const updateLanguage = function (account) {
   const i18n = {
     "en-US": {
+      // Welcome
       welcomeBack: "Welcome back",
+
+      // Balance
+      currentBalance: "Current balance",
+      asOf: "As of",
+
+      // Operations
       transferTitle: "Transfer money",
       loanTitle: "Request loan",
       closeTitle: "Close account",
-      // 你可以在这里添加更多页面上的固定文字
+
+      // Movement Types
+      deposit: "Deposit",
+      withdrawal: "Withdrawal",
+
+      // Relative Dates
+      today: "Today",
+      yesterday: "Yesterday",
+      daysAgo: "days ago",
+
+      // Summary
+      in: "In",
+      out: "Out",
+      interest: "Interest",
+
+      // Logout timer
+      logoutTimer: "You will be logged out in",
+
+      // Sort
+      sort: "Sort",
     },
+
     "zh-CN": {
-      defaultWelcome: "请登录",
       welcomeBack: "欢迎回来",
+
+      currentBalance: "当前余额",
+      asOf: "更新于",
+
       transferTitle: "转账",
       loanTitle: "申请贷款",
       closeTitle: "注销账户",
+
+      deposit: "存款",
+      withdrawal: "取款",
+
+      today: "今天",
+      yesterday: "昨天",
+      daysAgo: "天前",
+
+      in: "收入",
+      out: "支出",
+      interest: "利息",
+
+      logoutTimer: "您将在以下时间后退出登录",
+
+      sort: "排序",
     },
+
     "en-GB": {
       welcomeBack: "Welcome back",
+
+      currentBalance: "Current balance",
+      asOf: "As of",
+
       transferTitle: "Transfer funds",
       loanTitle: "Request loan",
       closeTitle: "Close account",
+
+      deposit: "Deposit",
+      withdrawal: "Withdrawal",
+
+      today: "Today",
+      yesterday: "Yesterday",
+      daysAgo: "days ago",
+
+      in: "In",
+      out: "Out",
+      interest: "Interest",
+
+      logoutTimer: "You will be logged out in",
+
+      sort: "Sort",
     },
 
     "ja-JP": {
       welcomeBack: "お帰りなさい",
+
+      currentBalance: "現在の残高",
+      asOf: "時点",
+
       transferTitle: "送金",
       loanTitle: "ローン申請",
       closeTitle: "口座解約",
+
+      deposit: "入金",
+      withdrawal: "出金",
+
+      today: "今日",
+      yesterday: "昨日",
+      daysAgo: "日前",
+
+      in: "入金",
+      out: "出金",
+      interest: "利息",
+
+      logoutTimer: "次の時間でログアウトされます",
+
+      sort: "並び替え",
     },
 
     "ko-KR": {
       welcomeBack: "다시 오신 것을 환영합니다",
+
+      currentBalance: "현재 잔액",
+      asOf: "기준",
+
       transferTitle: "송금",
       loanTitle: "대출 신청",
       closeTitle: "계좌 해지",
+
+      deposit: "입금",
+      withdrawal: "출금",
+
+      today: "오늘",
+      yesterday: "어제",
+      daysAgo: "일 전",
+
+      in: "입금",
+      out: "출금",
+      interest: "이자",
+
+      logoutTimer: "다음 시간 후 로그아웃됩니다",
+
+      sort: "정렬",
     },
   };
 
@@ -320,6 +286,7 @@ const updateLanguage = function (account) {
 };
 
 const updateUI = function (account) {
+  const userLanguagePack = updateLanguage(account);
   const totalInterest = calculateTotalInterest(account);
   account.totalBalance = calcTotalBalance(account);
 
@@ -335,10 +302,19 @@ const updateUI = function (account) {
     account.currency,
     account.locale,
   );
+
+  labelAsOf.textContent = userLanguagePack.asOf;
+  labelCurrentBalance.textContent = userLanguagePack.currentBalance;
+  labelIn.textContent = userLanguagePack.in;
+  labelOut.textContent = userLanguagePack.out;
+  labelInterest.textContent = userLanguagePack.interest;
+  btnSort.textContent = `↓ ${userLanguagePack.sort}`;
+
   labelSumIn.textContent = calcTotalDeposit(account);
   labelSumOut.textContent = calcTotalWithdrawal(account);
-  labelWelcome.textContent = `Welcome back, ${account.owner.split(" ")[0]}!`;
-  displayMovements(account);
+
+  labelWelcome.textContent = `${userLanguagePack.welcomeBack}, ${account.owner.split(" ")[0]}!`;
+  displayMovements(account, userLanguagePack);
 };
 
 const verifyLogin = function (account) {
@@ -382,10 +358,18 @@ const formatMovementDate = function (account, date) {
   if (difference === 0) return "Today";
   if (difference === 1) return "Yesterday";
   if (difference <= 7) return `${difference} days ago`;
-  else return new Intl.DateTimeFormat(account.locale).format(date);
-};
 
-const displayMovements = function (account, sortDecisionMaker = false) {
+  return new Intl.DateTimeFormat(account.locale, {
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  }).format(date);
+};
+const displayMovements = function (
+  account,
+  userLanguagePack,
+  sortDecisionMaker = false,
+) {
   if (!account.movements) return;
 
   const movements = sortDecisionMaker
@@ -395,11 +379,13 @@ const displayMovements = function (account, sortDecisionMaker = false) {
   containerMovements.innerHTML = "";
 
   movements.forEach(function (movement, index, array) {
-    const type = movement.amount > 0 ? "Deposit" : "Withdrawal";
+    const movementType = movement.amount > 0 ? "deposit" : "withdrawal";
+    const movementLabel = userLanguagePack[movementType];
+
     const date = formatMovementDate(account, new Date(movement.date), true);
     const html = `
     <div class="movements__row">
-      <div class="movements__type movements__type--${type.toLowerCase()}">${type}</div>
+      <div class="movements__type movements__type--${movementType}">${movementLabel}</div>
       <div class="movements__date">${date}</div>
       <div class="movements__value">${formatCurrency(movement.amount, account.currency, account.locale)}</div>
     </div>
@@ -475,7 +461,13 @@ const convertCurrency = async function (
 
 btnLogin.addEventListener("click", function (e) {
   e.preventDefault();
-  currentAccount = findUserByUserName(inputLoginUsername.value);
+  const foundAccount = findUserByUserName(inputLoginUsername.value);
+  if (!foundAccount) {
+    console.log("❌ Account not found!");
+    return;
+  }
+
+  currentAccount = foundAccount;
   inputLoginUsername.blur();
   inputLoginPin.blur();
   verifyLogin(currentAccount);
