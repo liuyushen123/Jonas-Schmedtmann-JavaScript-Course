@@ -5,146 +5,147 @@
 // BANKIST APP
 
 // Data
-const account1 = {
-  owner: "Yuchen Liu",
-  username: "yl",
-  interestRate: 1.2,
-  pin: 1,
-  currency: "USD",
-  locale: "en-US",
+// const account1 = {
+//   owner: "Yuchen Liu",
+//   username: "yl",
+//   interestRate: 1.2,
+//   pin: 1,
+//   currency: "USD",
+//   locale: "en-US",
 
-  movements: [
-    { amount: 255, date: "2026-05-13T19:39:00.101Z" },
-    { amount: 13, date: "2026-05-13T19:39:30.101Z" },
-    { amount: 258, date: "2026-05-15T02:02:24.856Z" },
-    { amount: -7, date: "2026-05-15T17:57:41.441Z" },
-    { amount: -5, date: "2026-05-15T17:57:41.441Z" },
-    { amount: 317, date: "2026-05-16T02:22:55.285Z" },
-    { amount: 345, date: "2026-05-17T02:30:16.754Z" },
-  ],
-};
+//   movements: [
+//     { amount: 255, date: "2026-05-13T19:39:00.101Z" },
+//     { amount: 13, date: "2026-05-13T19:39:30.101Z" },
+//     { amount: 258, date: "2026-05-15T02:02:24.856Z" },
+//     { amount: -7, date: "2026-05-15T17:57:41.441Z" },
+//     { amount: -5, date: "2026-05-15T17:57:41.441Z" },
+//     { amount: 317, date: "2026-05-16T02:22:55.285Z" },
+//     { amount: 345, date: "2026-05-17T02:30:16.754Z" },
+//     { amount: 282, date: "2026-05-18T01:28:25.697Z" },
+//   ],
+// };
 
-const account2 = {
-  owner: "Jessica Davis",
-  username: "jd",
-  interestRate: 1.5,
-  pin: 2222,
-  currency: "USD",
-  locale: "en-US",
+// const account2 = {
+//   owner: "Jessica Davis",
+//   username: "jd",
+//   interestRate: 1.5,
+//   pin: 2222,
+//   currency: "USD",
+//   locale: "en-US",
 
-  movements: [
-    {
-      amount: 5000,
-      date: "2025-11-01T13:15:33.035Z",
-    },
-    {
-      amount: 3400,
-      date: "2025-11-30T09:48:16.867Z",
-    },
-    {
-      amount: -150,
-      date: "2025-12-25T06:04:23.907Z",
-    },
-    {
-      amount: -790,
-      date: "2026-01-25T14:18:46.235Z",
-    },
-    {
-      amount: -3210,
-      date: "2026-02-05T16:33:06.386Z",
-    },
-    {
-      amount: -1000,
-      date: "2026-03-10T14:43:26.374Z",
-    },
-    {
-      amount: 8500,
-      date: "2026-04-25T18:49:59.371Z",
-    },
-    {
-      amount: -30,
-      date: "2026-05-01T12:01:20.894Z",
-    },
-  ],
-};
+//   movements: [
+//     {
+//       amount: 5000,
+//       date: "2025-11-01T13:15:33.035Z",
+//     },
+//     {
+//       amount: 3400,
+//       date: "2025-11-30T09:48:16.867Z",
+//     },
+//     {
+//       amount: -150,
+//       date: "2025-12-25T06:04:23.907Z",
+//     },
+//     {
+//       amount: -790,
+//       date: "2026-01-25T14:18:46.235Z",
+//     },
+//     {
+//       amount: -3210,
+//       date: "2026-02-05T16:33:06.386Z",
+//     },
+//     {
+//       amount: -1000,
+//       date: "2026-03-10T14:43:26.374Z",
+//     },
+//     {
+//       amount: 8500,
+//       date: "2026-04-25T18:49:59.371Z",
+//     },
+//     {
+//       amount: -30,
+//       date: "2026-05-01T12:01:20.894Z",
+//     },
+//   ],
+// };
 
-const account3 = {
-  owner: "Steven Thomas Williams",
-  username: "stw",
-  interestRate: 0.7,
-  pin: 3333,
-  currency: "GBP",
-  locale: "en-GB",
+// const account3 = {
+//   owner: "Steven Thomas Williams",
+//   username: "stw",
+//   interestRate: 0.7,
+//   pin: 3333,
+//   currency: "GBP",
+//   locale: "en-GB",
 
-  movements: [
-    {
-      amount: 200,
-      date: "2025-10-05T08:15:12.178Z",
-    },
-    {
-      amount: -200,
-      date: "2025-10-18T10:42:02.383Z",
-    },
-    {
-      amount: 340,
-      date: "2025-11-11T11:15:04.904Z",
-    },
-    {
-      amount: -300,
-      date: "2025-12-01T09:17:24.185Z",
-    },
-    {
-      amount: -20,
-      date: "2026-01-08T12:11:59.604Z",
-    },
-    {
-      amount: 50,
-      date: "2026-02-14T15:01:17.194Z",
-    },
-    {
-      amount: 400,
-      date: "2026-03-21T20:36:17.929Z",
-    },
-    {
-      amount: -460,
-      date: "2026-04-30T22:51:36.790Z",
-    },
-  ],
-};
+//   movements: [
+//     {
+//       amount: 200,
+//       date: "2025-10-05T08:15:12.178Z",
+//     },
+//     {
+//       amount: -200,
+//       date: "2025-10-18T10:42:02.383Z",
+//     },
+//     {
+//       amount: 340,
+//       date: "2025-11-11T11:15:04.904Z",
+//     },
+//     {
+//       amount: -300,
+//       date: "2025-12-01T09:17:24.185Z",
+//     },
+//     {
+//       amount: -20,
+//       date: "2026-01-08T12:11:59.604Z",
+//     },
+//     {
+//       amount: 50,
+//       date: "2026-02-14T15:01:17.194Z",
+//     },
+//     {
+//       amount: 400,
+//       date: "2026-03-21T20:36:17.929Z",
+//     },
+//     {
+//       amount: -460,
+//       date: "2026-04-30T22:51:36.790Z",
+//     },
+//   ],
+// };
 
-const account4 = {
-  owner: "Sarah Smith",
-  username: "ss",
-  interestRate: 1,
-  pin: 4444,
-  currency: "CAD",
-  locale: "en-CA",
+// const account4 = {
+//   owner: "Sarah Smith",
+//   username: "ss",
+//   interestRate: 1,
+//   pin: 4444,
+//   currency: "CAD",
+//   locale: "en-CA",
 
-  movements: [
-    {
-      amount: 430,
-      date: "2026-01-10T11:11:11.111Z",
-    },
-    {
-      amount: 1000,
-      date: "2026-02-14T15:20:45.222Z",
-    },
-    {
-      amount: 700,
-      date: "2026-03-03T08:45:12.333Z",
-    },
-    {
-      amount: 50,
-      date: "2026-04-07T19:30:10.444Z",
-    },
-    {
-      amount: 90,
-      date: "2026-05-09T21:05:55.555Z",
-    },
-  ],
-};
+//   movements: [
+//     {
+//       amount: 430,
+//       date: "2026-01-10T11:11:11.111Z",
+//     },
+//     {
+//       amount: 1000,
+//       date: "2026-02-14T15:20:45.222Z",
+//     },
+//     {
+//       amount: 700,
+//       date: "2026-03-03T08:45:12.333Z",
+//     },
+//     {
+//       amount: 50,
+//       date: "2026-04-07T19:30:10.444Z",
+//     },
+//     {
+//       amount: 90,
+//       date: "2026-05-09T21:05:55.555Z",
+//     },
+//   ],
+// };
 
-const accounts = [account1, account2, account3, account4];
+let accounts;
 
 let currentAccount;
 let isSorted = false;
@@ -175,6 +176,43 @@ const inputTransferAmount = document.querySelector(".form__input--amount");
 const inputLoanAmount = document.querySelector(".form__input--loan-amount");
 const inputCloseUsername = document.querySelector(".form__input--user");
 const inputClosePin = document.querySelector(".form__input--pin");
+/////////////////////////////////////////////////
+/////////////////////////////////////////////////
+// AI codes! Will fix after async section!!!!!!
+
+const initializeData = async function () {
+  try {
+    // 1. Check if we already have saved data in the browser
+    const storedData = localStorage.getItem("bankistAccounts");
+
+    if (storedData) {
+      // ✅ We have saved data! Parse it and use it.
+      accounts = JSON.parse(storedData);
+      console.log("💾 Data loaded from localStorage");
+    } else {
+      // 🌐 No saved data. Fetch the default data from your JSON file!
+      const response = await fetch("Data/accounts.json");
+
+      if (!response.ok) throw new Error("Could not fetch accounts.json");
+
+      const data = await response.json();
+      accounts = data; // Assign the fetched data to our variable
+
+      // Immediately save this fresh data to localStorage for next time
+      localStorage.setItem("bankistAccounts", JSON.stringify(accounts));
+      console.log("🌐 Data fetched from JSON and saved to browser");
+    }
+  } catch (error) {
+    console.error("❌ Error initializing data:", error);
+  }
+};
+
+const saveProgress = function () {
+  localStorage.setItem("bankistAccounts", JSON.stringify(accounts));
+};
+
+// Call the function immediately so the data loads before the user does anything
+initializeData();
 
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
@@ -240,6 +278,47 @@ const calculateTotalInterest = function (account) {
   return Number(totalInterest.toFixed(2));
 };
 
+const updateLanguage = function (account) {
+  const i18n = {
+    "en-US": {
+      welcomeBack: "Welcome back",
+      transferTitle: "Transfer money",
+      loanTitle: "Request loan",
+      closeTitle: "Close account",
+      // 你可以在这里添加更多页面上的固定文字
+    },
+    "zh-CN": {
+      defaultWelcome: "请登录",
+      welcomeBack: "欢迎回来",
+      transferTitle: "转账",
+      loanTitle: "申请贷款",
+      closeTitle: "注销账户",
+    },
+    "en-GB": {
+      welcomeBack: "Welcome back",
+      transferTitle: "Transfer funds",
+      loanTitle: "Request loan",
+      closeTitle: "Close account",
+    },
+
+    "ja-JP": {
+      welcomeBack: "お帰りなさい",
+      transferTitle: "送金",
+      loanTitle: "ローン申請",
+      closeTitle: "口座解約",
+    },
+
+    "ko-KR": {
+      welcomeBack: "다시 오신 것을 환영합니다",
+      transferTitle: "송금",
+      loanTitle: "대출 신청",
+      closeTitle: "계좌 해지",
+    },
+  };
+
+  return i18n[account.locale];
+};
+
 const updateUI = function (account) {
   const totalInterest = calculateTotalInterest(account);
   account.totalBalance = calcTotalBalance(account);
@@ -252,7 +331,7 @@ const updateUI = function (account) {
 
   dateSelector.textContent = formatCurrentDate(account);
   labelBalance.textContent = formatCurrency(
-    account.balance,
+    account.totalBalance,
     account.currency,
     account.locale,
   );
@@ -288,9 +367,7 @@ const formatCurrency = function (
 };
 
 const formatCurrentDate = function (account, date = new Date()) {
-  const locale = account.locale === "zh-CN" ? "en-US" : account.locale;
-
-  return new Intl.DateTimeFormat(locale, {
+  return new Intl.DateTimeFormat(account.locale, {
     year: "numeric",
     month: "short",
     day: "numeric",
@@ -459,7 +536,7 @@ btnTransfer.addEventListener("click", async function (e) {
 
   inputTransferAmount.blur();
   inputTransferTo.blur();
-
+  saveProgress();
   console.log("✅ Transfer valid");
 });
 btnClose.addEventListener("click", function (e) {
@@ -500,6 +577,7 @@ btnClose.addEventListener("click", function (e) {
     labelWelcome.textContent = "Log in to get started";
     selectorElementInvisiable(containerApp);
   }
+  saveProgress();
 });
 
 btnLoan.addEventListener("click", function (e) {
@@ -535,6 +613,8 @@ btnLoan.addEventListener("click", function (e) {
   } else {
     console.log("❌ Loan disapproved: No large enough deposits found.");
   }
+
+  saveProgress();
 });
 
 btnSort.addEventListener("click", function (e) {
