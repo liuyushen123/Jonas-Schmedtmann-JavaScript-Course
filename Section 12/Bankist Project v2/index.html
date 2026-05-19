@@ -78,13 +78,19 @@
 
       <!-- OPERATION: TRANSFERS -->
       <div class="operation operation--transfer">
-        <h2>Transfer money</h2>
+        <h2>
+          <span class="transfer__operation__text"> Transfer money </span>
+        </h2>
         <form class="form form--transfer">
           <input type="text" class="form__input form__input--to" />
           <input type="number" class="form__input form__input--amount" />
           <button class="form__btn form__btn--transfer">&rarr;</button>
-          <label class="form__label">Transfer to</label>
-          <label class="form__label">Amount</label>
+          <label class="form__label"
+            ><span class="transfer__to__label">Transfer to</span></label
+          >
+          <label class="form__label"
+            ><span class="amount__label">Amount</span></label
+          >
         </form>
       </div>
 
@@ -94,7 +100,9 @@
         <form class="form form--loan">
           <input type="number" class="form__input form__input--loan-amount" />
           <button class="form__btn form__btn--loan">&rarr;</button>
-          <label class="form__label form__label--loan">Amount</label>
+          <label class="form__label form__label--loan"
+            ><span class="amount__label">Amount</span></label
+          >
         </form>
       </div>
 

@@ -20,7 +20,10 @@ const labelAsOf = document.querySelector(".balance__as-of");
 const labelCurrentBalance = document.querySelector(".balance__label");
 const labelIn = document.querySelector(".summary__label--in");
 const labelOut = document.querySelector(".summary__label--out");
+const labelTransfer = document.querySelector(".transfer__operation__text");
 const labelInterest = document.querySelector(".summary__label--interest");
+const labelTransferTo = document.querySelector(".transfer__to__label");
+const labelAmount = document.querySelectorAll(".amount__label");
 const dateSelector = document.querySelector(".date");
 
 const containerApp = document.querySelector(".app");
@@ -144,6 +147,10 @@ const calculateTotalInterest = function (account) {
 const updateLanguage = function (account) {
   const i18n = {
     "en-US": {
+      // Login
+      user: "User",
+      pin: "PIN",
+
       // Welcome
       welcomeBack: "Welcome back",
 
@@ -155,6 +162,14 @@ const updateLanguage = function (account) {
       transferTitle: "Transfer money",
       loanTitle: "Request loan",
       closeTitle: "Close account",
+
+      // Form Labels
+      transferTo: "Transfer to",
+      amount: "Amount",
+
+      // Close Account
+      confirmUser: "Confirm user",
+      confirmPin: "Confirm PIN",
 
       // Movement Types
       deposit: "Deposit",
@@ -178,6 +193,10 @@ const updateLanguage = function (account) {
     },
 
     "zh-CN": {
+      // Login
+      user: "用户名",
+      pin: "密码",
+
       welcomeBack: "欢迎回来",
 
       currentBalance: "当前余额",
@@ -186,6 +205,12 @@ const updateLanguage = function (account) {
       transferTitle: "转账",
       loanTitle: "申请贷款",
       closeTitle: "注销账户",
+
+      transferTo: "转账对象",
+      amount: "金额",
+
+      confirmUser: "确认用户",
+      confirmPin: "确认密码",
 
       deposit: "存款",
       withdrawal: "取款",
@@ -204,6 +229,10 @@ const updateLanguage = function (account) {
     },
 
     "en-GB": {
+      // Login
+      user: "User",
+      pin: "PIN",
+
       welcomeBack: "Welcome back",
 
       currentBalance: "Current balance",
@@ -212,6 +241,12 @@ const updateLanguage = function (account) {
       transferTitle: "Transfer funds",
       loanTitle: "Request loan",
       closeTitle: "Close account",
+
+      transferTo: "Transfer to",
+      amount: "Amount",
+
+      confirmUser: "Confirm user",
+      confirmPin: "Confirm PIN",
 
       deposit: "Deposit",
       withdrawal: "Withdrawal",
@@ -230,6 +265,10 @@ const updateLanguage = function (account) {
     },
 
     "ja-JP": {
+      // Login
+      user: "ユーザー",
+      pin: "暗証番号",
+
       welcomeBack: "お帰りなさい",
 
       currentBalance: "現在の残高",
@@ -238,6 +277,12 @@ const updateLanguage = function (account) {
       transferTitle: "送金",
       loanTitle: "ローン申請",
       closeTitle: "口座解約",
+
+      transferTo: "送金先",
+      amount: "金額",
+
+      confirmUser: "ユーザー確認",
+      confirmPin: "暗証番号確認",
 
       deposit: "入金",
       withdrawal: "出金",
@@ -256,6 +301,10 @@ const updateLanguage = function (account) {
     },
 
     "ko-KR": {
+      // Login
+      user: "사용자",
+      pin: "비밀번호",
+
       welcomeBack: "다시 오신 것을 환영합니다",
 
       currentBalance: "현재 잔액",
@@ -264,6 +313,12 @@ const updateLanguage = function (account) {
       transferTitle: "송금",
       loanTitle: "대출 신청",
       closeTitle: "계좌 해지",
+
+      transferTo: "송금 대상",
+      amount: "금액",
+
+      confirmUser: "사용자 확인",
+      confirmPin: "비밀번호 확인",
 
       deposit: "입금",
       withdrawal: "출금",
@@ -308,6 +363,10 @@ const updateUI = function (account) {
   labelIn.textContent = userLanguagePack.in;
   labelOut.textContent = userLanguagePack.out;
   labelInterest.textContent = userLanguagePack.interest;
+  labelTransfer.textContent = userLanguagePack.transferTitle;
+  labelTransferTo.textContent = userLanguagePack.transferTo;
+  labelAmount.textContent = userLanguagePack.amount;
+
   btnSort.textContent = `↓ ${userLanguagePack.sort}`;
 
   labelSumIn.textContent = calcTotalDeposit(account);
@@ -352,12 +411,18 @@ const formatCurrentDate = function (account, date = new Date()) {
   }).format(date);
 };
 
-const formatMovementDate = function (account, date) {
-  const today = new Date();
-  const difference = Math.round(Math.abs(date - today) / (1000 * 60 * 60 * 24));
-  if (difference === 0) return "Today";
-  if (difference === 1) return "Yesterday";
-  if (difference <= 7) return `${difference} days ago`;
+const formatMovementDate = function (
+  account,
+  date,
+  { today, yesterday, daysAgo },
+) {
+  const currentDate = new Date();
+  const difference = Math.round(
+    Math.abs(date - currentDate) / (1000 * 60 * 60 * 24),
+  );
+  if (difference === 0) return today;
+  if (difference === 1) return yesterday;
+  if (difference <= 7) return `${difference} ${daysAgo}`;
 
   return new Intl.DateTimeFormat(account.locale, {
     year: "numeric",
@@ -382,7 +447,11 @@ const displayMovements = function (
     const movementType = movement.amount > 0 ? "deposit" : "withdrawal";
     const movementLabel = userLanguagePack[movementType];
 
-    const date = formatMovementDate(account, new Date(movement.date), true);
+    const date = formatMovementDate(
+      account,
+      new Date(movement.date),
+      userLanguagePack,
+    );
     const html = `
     <div class="movements__row">
       <div class="movements__type movements__type--${movementType}">${movementLabel}</div>
@@ -589,10 +658,10 @@ btnLoan.addEventListener("click", function (e) {
     return;
   }
 
-  if (requestLoanAmount < 500) {
-    console.log("❌ Amount of the loan requested is too low");
-    return;
-  }
+  // if (requestLoanAmount < 500) {
+  //   console.log("❌ Amount of the loan requested is too low");
+  //   return;
+  // }
 
   const isUserQualified = currentAccount.movements.some(function (movement) {
     return movement.amount > requestLoanAmount * 0.1;
